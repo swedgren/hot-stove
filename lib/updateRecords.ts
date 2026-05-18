@@ -12,11 +12,16 @@ const MLB_TEAM_MAP: Record<string, string> = {
   '147': 'NYY', '158': 'MIL',
 }
 
-export async function fetchMLBRecords(): Promise<Record<string, { wins: number; losses: number }>> {
-  const res = await fetch(
-    'https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=2026&standingsTypes=regularSeason',
-    { next: { revalidate: 0 } }
-  )
+export async function fetchMLBRecords(
+  asOfDate?: string
+): Promise<Record<string, { wins: number; losses: number }>> {
+  const url = new URL('https://statsapi.mlb.com/api/v1/standings')
+  url.searchParams.set('leagueId', '103,104')
+  url.searchParams.set('season', '2026')
+  url.searchParams.set('standingsTypes', 'regularSeason')
+  if (asOfDate) url.searchParams.set('date', asOfDate)
+
+  const res = await fetch(url.toString(), { next: { revalidate: 0 } })
   const data = await res.json()
 
   const records: Record<string, { wins: number; losses: number }> = {}

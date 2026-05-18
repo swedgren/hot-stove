@@ -11,6 +11,7 @@ type Pick = {
   wins: number
   losses: number
   points: number
+  month_points: number
 }
 
 type TeamStanding = {
@@ -18,6 +19,7 @@ type TeamStanding = {
   name: string
   draft_slot: number
   points: number
+  month_points: number
   team_picks: Pick[]
 }
 
@@ -118,7 +120,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '32px 1fr 70px 70px',
+          gridTemplateColumns: '32px 1fr 60px 60px 60px',
           padding: '8px 24px',
           borderBottom: '2px solid rgba(255,255,255,0.25)',
           fontSize: 9,
@@ -130,7 +132,8 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
         }}>
           <div></div>
           <div>TEAM</div>
-          <div style={{ textAlign: 'center' }}>PTS</div>
+          <div style={{ textAlign: 'center' }}>MONTH</div>
+          <div style={{ textAlign: 'center' }}>SEASON</div>
           <div style={{ textAlign: 'center' }}>GB</div>
         </div>
 
@@ -143,6 +146,8 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
             return sum + (p.direction === 'W' ? p.wins : p.losses)
           }, 0)
 
+          const monthPoints = picks.reduce((sum, p) => sum + (p.month_points ?? 0), 0)
+
           const gb = gamesBack(verifiedPoints)
 
           return (
@@ -152,7 +157,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                 onClick={() => setExpandedTeam(isExpanded ? null : team.id)}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '32px 1fr 70px 70px',
+                  gridTemplateColumns: '32px 1fr 60px 60px 60px',
                   padding: '14px 24px',
                   borderBottom: '1px solid rgba(255,255,255,0.12)',
                   cursor: 'pointer',
@@ -190,6 +195,15 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                   <div style={{ fontSize: 10, color: '#c8c8c8', marginTop: 2, fontFamily: '"Courier New", monospace' }}>
                     {isExpanded ? '▲ hide picks' : '▼ show picks'}
                   </div>
+                </div>
+
+                <div style={{
+                  textAlign: 'center', fontFamily: '"Courier New", monospace',
+                  fontWeight: 'bold', fontSize: 18,
+                  color: '#ffffff',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.6)',
+                }}>
+                  {monthPoints}
                 </div>
 
                 <div style={{

@@ -16,6 +16,42 @@ export async function GET(request: Request) {
   )
 
   try {
+    // Ensure a snapshot exists for the current calendar month (UTC).
+    // The snapshot captures the wins/losses going INTO the month, so
+    // month_points = current - snapshot.
+    const now = new Date()
+    const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
+    const monthStartISO = monthStart.toISOString().slice(0, 10)
+
+    const { data: existingSnap, error: snapCheckErr } = await supabase
+      .from('mlb_month_snapshots')
+      .select('mlb_team_abbr')
+      .eq('snapshot_date', monthStartISO)
+      .limit(1)
+    if (snapCheckErr) throw snapCheckErr
+
+    let snapshotCreated = false
+    if (!existingSnap || existingSnap.length === 0) {
+      const dayBefore = new Date(monthStart.getTime() - 86_400_000)
+      const dayBeforeISO = dayBefore.toISOString().slice(0, 10)
+      const snapRecords = await fetchMLBRecords(dayBeforeISO)
+
+      const snapRows = Object.entries(snapRecords).map(([abbr, rec]) => ({
+        mlb_team_abbr: abbr,
+        snapshot_date: monthStartISO,
+        wins: rec.wins,
+        losses: rec.losses,
+      }))
+
+      if (snapRows.length > 0) {
+        const { error: snapInsErr } = await supabase
+          .from('mlb_month_snapshots')
+          .insert(snapRows)
+        if (snapInsErr) throw snapInsErr
+        snapshotCreated = true
+      }
+    }
+
     const records = await fetchMLBRecords()
 
     const upserts = Object.entries(records).map(([abbr, rec]) => ({
@@ -34,6 +70,8 @@ export async function GET(request: Request) {
     return NextResponse.json({
       success: true,
       updated: upserts.length,
+      snapshotCreated,
+      snapshotMonth: monthStartISO,
       timestamp: new Date().toISOString(),
     })
   } catch (err) {
