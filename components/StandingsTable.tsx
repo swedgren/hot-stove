@@ -294,7 +294,11 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                             borderTop: '1px solid #f0f0f0', paddingTop: 4, marginTop: 2,
                           }}>
-                            <span style={{ fontSize: 8, color: '#bbb', fontFamily: '"Courier New", monospace' }}>
+                            <span style={{
+                              fontSize: 9, fontWeight: 'bold', letterSpacing: '0.1em',
+                              color: pick.direction === 'W' ? '#2d7a2d' : '#b94040',
+                              fontFamily: '"Courier New", monospace',
+                            }}>
                               {pick.direction === 'W' ? 'WINS' : 'LOSSES'}
                             </span>
                             <span style={{
