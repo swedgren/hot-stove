@@ -49,14 +49,24 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
 
   return (
     <div style={{
+      position: 'relative',
       minHeight: '100vh',
-      backgroundImage: 'url("https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1600&q=80")',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
       fontFamily: '"Georgia", serif',
-      padding: '32px 20px',
     }}>
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        backgroundImage: 'url("/stadium.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        zIndex: 0,
+      }} />
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.5)',
+        zIndex: 1,
+      }} />
       <style>{`
         * { box-sizing: border-box; margin: 0; padding: 0; }
         @media (max-width: 600px) {
@@ -66,14 +76,15 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
         }
       `}</style>
 
-      <div style={{
-        maxWidth: 820,
-        margin: '0 auto',
-        background: 'rgba(255,255,255,0.93)',
-        borderRadius: 4,
-        boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
-        overflow: 'hidden',
-      }}>
+      <div style={{ position: 'relative', zIndex: 2, padding: '32px 20px' }}>
+        <div style={{
+          maxWidth: 820,
+          margin: '0 auto',
+          background: 'rgba(255,255,255,0.96)',
+          borderRadius: 4,
+          boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
+          overflow: 'hidden',
+        }}>
 
         <div style={{
           background: '#1a1a2e',
@@ -288,6 +299,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
         }}>
           <div>W PICKS SCORE WINS · L PICKS SCORE LOSSES · UPDATES NIGHTLY</div>
           <div style={{ marginTop: 3 }}>GB = (LEADER PTS − TEAM PTS) ÷ 2</div>
+        </div>
         </div>
       </div>
     </div>
