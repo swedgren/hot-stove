@@ -35,8 +35,8 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
 
   function gamesBack(teamPoints: number): string {
     if (!leader || teamPoints === leader.points) return '—'
-    const gb = (leader.points - teamPoints) / 2
-    return gb % 1 === 0 ? gb.toFixed(0) : gb.toFixed(1)
+    const gb = leader.points - teamPoints
+    return gb.toString()
   }
 
   function formatDate(iso: string | null): string {
