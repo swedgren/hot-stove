@@ -50,7 +50,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundImage: 'url("https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=1600&q=80")',
+      backgroundImage: 'url("https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1600&q=80")',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
