@@ -67,6 +67,20 @@ export async function GET(request: Request) {
 
     if (error) throw error
 
+    // On the 1st of each month, snapshot current records as next month's baseline
+    if (now.getUTCDate() === 1) {
+      const snapshotDate = now.toISOString().slice(0, 10) // e.g. "2026-06-01"
+      const snapshots = upserts.map(r => ({
+        mlb_team_abbr: r.mlb_team_abbr,
+        snapshot_date: snapshotDate,
+        wins: r.wins,
+        losses: r.losses,
+      }))
+      await supabase
+        .from('mlb_month_snapshots')
+        .upsert(snapshots, { onConflict: 'mlb_team_abbr,snapshot_date' })
+    }
+
     return NextResponse.json({
       success: true,
       updated: upserts.length,
