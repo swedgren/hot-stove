@@ -64,7 +64,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
       <div style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(0,0,0,0.25)',
+        background: 'rgba(0,0,0,0.55)',
         zIndex: 1,
       }} />
       <style>{`
@@ -120,13 +120,13 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
           display: 'grid',
           gridTemplateColumns: '32px 1fr 70px 70px',
           padding: '8px 24px',
-          borderBottom: '2px solid #1a1a2e',
+          borderBottom: '2px solid rgba(255,255,255,0.25)',
           fontSize: 9,
           fontFamily: '"Courier New", monospace',
           letterSpacing: '0.15em',
-          color: '#888',
+          color: '#d0d0d0',
           fontWeight: 'bold',
-          background: 'rgba(250,250,250,0.7)',
+          background: 'transparent',
         }}>
           <div></div>
           <div>TEAM</div>
@@ -154,38 +154,40 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                   display: 'grid',
                   gridTemplateColumns: '32px 1fr 70px 70px',
                   padding: '14px 24px',
-                  borderBottom: '1px solid #e8e8e8',
+                  borderBottom: '1px solid rgba(255,255,255,0.12)',
                   cursor: 'pointer',
-                  background: isLeader ? 'rgba(255,251,238,0.78)' : index % 2 === 0 ? 'rgba(255,255,255,0.72)' : 'rgba(250,250,250,0.72)',
-                  borderLeft: isLeader ? '4px solid #c8a84b' : '4px solid transparent',
+                  background: 'transparent',
+                  borderLeft: isLeader ? '4px solid #22c55e' : '4px solid transparent',
                   alignItems: 'center',
                 }}
               >
                 <div style={{
                   fontFamily: '"Courier New", monospace',
                   fontSize: 13, fontWeight: 'bold',
-                  color: isLeader ? '#c8a84b' : '#bbb',
+                  color: isLeader ? '#22c55e' : '#d0d0d0',
                 }}>
                   {index + 1}
                 </div>
 
                 <div>
                   <div style={{
-                    fontWeight: isLeader ? 'bold' : 'normal',
+                    fontWeight: 'bold',
                     fontSize: isLeader ? 17 : 15,
-                    color: '#1a1a1a',
+                    color: isLeader ? '#22c55e' : '#ffffff',
                     display: 'flex', alignItems: 'center', gap: 8,
+                    textShadow: '0 1px 3px rgba(0,0,0,0.6)',
                   }}>
                     {team.name}
                     {isLeader && (
                       <span style={{
-                        fontSize: 8, letterSpacing: '0.15em', color: '#c8a84b',
+                        fontSize: 8, letterSpacing: '0.15em', color: '#22c55e',
                         fontFamily: '"Courier New", monospace',
-                        border: '1px solid #c8a84b', padding: '1px 5px', borderRadius: 2,
+                        border: '1px solid #22c55e', padding: '1px 5px', borderRadius: 2,
+                        fontWeight: 'bold',
                       }}>★ LEADER</span>
                     )}
                   </div>
-                  <div style={{ fontSize: 10, color: '#aaa', marginTop: 2, fontFamily: '"Courier New", monospace' }}>
+                  <div style={{ fontSize: 10, color: '#c8c8c8', marginTop: 2, fontFamily: '"Courier New", monospace' }}>
                     {isExpanded ? '▲ hide picks' : '▼ show picks'}
                   </div>
                 </div>
@@ -193,14 +195,16 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                 <div style={{
                   textAlign: 'center', fontFamily: '"Courier New", monospace',
                   fontWeight: 'bold', fontSize: 18,
-                  color: isLeader ? '#c8a84b' : '#1a1a1a',
+                  color: isLeader ? '#22c55e' : '#ffffff',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.6)',
                 }}>
                   {verifiedPoints}
                 </div>
 
                 <div style={{
                   textAlign: 'center', fontFamily: '"Courier New", monospace',
-                  fontSize: 15, color: '#666',
+                  fontWeight: 'bold', fontSize: 15, color: '#facc15',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.6)',
                 }}>
                   {gb}
                 </div>
@@ -208,10 +212,10 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
 
               {isExpanded && (
                 <div style={{
-                  background: 'rgba(249,247,242,0.78)',
-                  borderBottom: '1px solid #e8e8e8',
+                  background: 'transparent',
+                  borderBottom: '1px solid rgba(255,255,255,0.1)',
                   padding: '16px 24px 20px',
-                  borderLeft: isLeader ? '4px solid #c8a84b' : '4px solid #e0e0e0',
+                  borderLeft: isLeader ? '4px solid #22c55e' : '4px solid transparent',
                 }}>
                   <div style={{
                     fontSize: 9, letterSpacing: '0.2em', color: '#999',
@@ -295,7 +299,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
         <div style={{
           padding: '16px 24px', textAlign: 'center', fontSize: 9, color: '#bbb',
           fontFamily: '"Courier New", monospace', letterSpacing: '0.1em',
-          background: 'rgba(250,250,250,0.7)', borderTop: '1px solid #e8e8e8',
+          background: 'transparent', borderTop: '1px solid rgba(255,255,255,0.1)',
         }}>
           <div>W PICKS SCORE WINS · L PICKS SCORE LOSSES · UPDATES NIGHTLY</div>
           <div style={{ marginTop: 3 }}>GB = (LEADER PTS − TEAM PTS) ÷ 2</div>
