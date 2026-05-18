@@ -231,22 +231,36 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                       const pick = picks.find(p => p.round === ri + 1)
                       if (!pick) return <div key={ri} />
                       const pickPts = pick.direction === 'W' ? pick.wins : pick.losses
+                      const isRightWay = pick.direction === 'W'
+                        ? pick.wins > pick.losses
+                        : pick.losses > pick.wins
                       return (
                         <div key={ri} style={{
+                          position: 'relative',
                           border: '1px solid #e0e0e0', borderRadius: 4, padding: '10px',
                           background: '#ffffff',
                           borderTop: `3px solid ${pick.direction === 'W' ? '#2d7a2d' : '#b94040'}`,
                         }}>
+                          {isRightWay && (
+                            <span
+                              aria-label="right-way pick"
+                              style={{
+                                position: 'absolute', top: 6, right: 6,
+                                color: '#22c55e', fontSize: 14, fontWeight: 'bold',
+                                lineHeight: 1,
+                              }}
+                            >✓</span>
+                          )}
                           <div style={{
                             fontSize: 8, color: '#bbb', letterSpacing: '0.1em',
                             fontFamily: '"Courier New", monospace', marginBottom: 4,
                           }}>
                             RD {label} · #{pick.pick}
                           </div>
-                          <div style={{ fontSize: 14, fontWeight: 'bold', color: '#1a1a1a', marginBottom: 2 }}>
+                          <div style={{ fontSize: 14, fontWeight: 'bold', color: '#000000', marginBottom: 2 }}>
                             {pick.abbr}
                           </div>
-                          <div style={{ fontSize: 9, color: '#999', marginBottom: 6, lineHeight: 1.3 }}>
+                          <div style={{ fontSize: 9, color: '#000000', marginBottom: 6, lineHeight: 1.3 }}>
                             {pick.name}
                           </div>
                           <div style={{
@@ -257,7 +271,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                             {pick.direction === 'W' ? 'LONG (W)' : 'SHORT (L)'}
                           </div>
                           <div style={{
-                            fontSize: 9, color: '#888',
+                            fontSize: 9, color: '#000000', fontWeight: 'bold',
                             fontFamily: '"Courier New", monospace', marginBottom: 4,
                           }}>
                             {pick.wins}W – {pick.losses}L
