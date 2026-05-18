@@ -64,7 +64,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
       <div style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(0,0,0,0.5)',
+        background: 'rgba(0,0,0,0.25)',
         zIndex: 1,
       }} />
       <style>{`
@@ -80,7 +80,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
         <div style={{
           maxWidth: 820,
           margin: '0 auto',
-          background: 'rgba(255,255,255,0.96)',
+          background: 'transparent',
           borderRadius: 4,
           boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
           overflow: 'hidden',
@@ -126,7 +126,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
           letterSpacing: '0.15em',
           color: '#888',
           fontWeight: 'bold',
-          background: '#fafafa',
+          background: 'rgba(250,250,250,0.7)',
         }}>
           <div></div>
           <div>TEAM</div>
@@ -156,7 +156,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
                   padding: '14px 24px',
                   borderBottom: '1px solid #e8e8e8',
                   cursor: 'pointer',
-                  background: isLeader ? '#fffbee' : index % 2 === 0 ? '#ffffff' : '#fafafa',
+                  background: isLeader ? 'rgba(255,251,238,0.78)' : index % 2 === 0 ? 'rgba(255,255,255,0.72)' : 'rgba(250,250,250,0.72)',
                   borderLeft: isLeader ? '4px solid #c8a84b' : '4px solid transparent',
                   alignItems: 'center',
                 }}
@@ -208,7 +208,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
 
               {isExpanded && (
                 <div style={{
-                  background: '#f9f7f2',
+                  background: 'rgba(249,247,242,0.78)',
                   borderBottom: '1px solid #e8e8e8',
                   padding: '16px 24px 20px',
                   borderLeft: isLeader ? '4px solid #c8a84b' : '4px solid #e0e0e0',
@@ -295,7 +295,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
         <div style={{
           padding: '16px 24px', textAlign: 'center', fontSize: 9, color: '#bbb',
           fontFamily: '"Courier New", monospace', letterSpacing: '0.1em',
-          background: '#fafafa', borderTop: '1px solid #e8e8e8',
+          background: 'rgba(250,250,250,0.7)', borderTop: '1px solid #e8e8e8',
         }}>
           <div>W PICKS SCORE WINS · L PICKS SCORE LOSSES · UPDATES NIGHTLY</div>
           <div style={{ marginTop: 3 }}>GB = (LEADER PTS − TEAM PTS) ÷ 2</div>
