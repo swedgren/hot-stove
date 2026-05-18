@@ -302,7 +302,7 @@ export default function StandingsTable({ standings, lastUpdated }: Props) {
           background: 'transparent', borderTop: '1px solid rgba(255,255,255,0.1)',
         }}>
           <div>W PICKS SCORE WINS · L PICKS SCORE LOSSES · UPDATES NIGHTLY</div>
-          <div style={{ marginTop: 3 }}>GB = (LEADER PTS − TEAM PTS) ÷ 2</div>
+          <div style={{ marginTop: 3 }}>GB = LEADER PTS − TEAM PTS</div>
         </div>
         </div>
       </div>
